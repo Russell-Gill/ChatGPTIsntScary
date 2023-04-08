@@ -6,6 +6,12 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import EarlyStopping
 
+# Custom early stopping to kill at a specified loss
+# Early stopping is tempermental, and I dislike what it calls "DONE".
+# Rather than change the patience value, I have just overridden
+# the on_epoch_end method to check for a loss value I define.
+# Makes more sense to me than having a patience of something like
+# 1000.
 class CustomEarlyStopping(EarlyStopping):
     def __init__(self, monitor='val_loss', stop_loss=0.05, min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False, require_loss=False):
         super().__init__(monitor=monitor, min_delta=min_delta, patience=patience, verbose=verbose, mode=mode, baseline=baseline, restore_best_weights=restore_best_weights)
