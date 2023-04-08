@@ -13,8 +13,27 @@ from tensorflow.keras.callbacks import EarlyStopping
 # Makes more sense to me than having a patience of something like
 # 1000.
 class CustomEarlyStopping(EarlyStopping):
-    def __init__(self, monitor='val_loss', stop_loss=0.05, min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False, require_loss=False):
-        super().__init__(monitor=monitor, min_delta=min_delta, patience=patience, verbose=verbose, mode=mode, baseline=baseline, restore_best_weights=restore_best_weights)
+    def __init__(
+            self, 
+            monitor='val_loss', 
+            stop_loss=0.05, 
+            min_delta=0, 
+            patience=0, 
+            verbose=0, 
+            mode='auto', 
+            baseline=None, 
+            restore_best_weights=False, 
+            require_loss=False
+        ):
+        super().__init__(
+            monitor=monitor, 
+            min_delta=min_delta, 
+            patience=patience, 
+            verbose=verbose, 
+            mode=mode, 
+            baseline=baseline, 
+            restore_best_weights=restore_best_weights
+        )
         self.require_loss = require_loss
         self.stop_loss = stop_loss
 
