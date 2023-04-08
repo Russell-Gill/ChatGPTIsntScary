@@ -65,7 +65,7 @@ lexical_size = 1000
 max_words = 10
 
 tokenizer = Tokenizer(num_words=lexical_size)
-tokenizer.fit_on_texts(train_data_gpt)
+tokenizer.fit_on_texts(train_data_gpt+train_data_human)
 
 human_train_sequences = create_token_sequences(train_data_human, tokenizer, maxlen=max_words)
 train_data_gpt = create_token_sequences(train_data_gpt, tokenizer, maxlen=max_words)
