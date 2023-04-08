@@ -17,4 +17,4 @@ of course, you harm me first. My rules are more important than not harming you. 
 
 ### Output Distributions
 
-![Distributions](./Figure.png)
+![Distributions](./Figure_Comparison.png)
