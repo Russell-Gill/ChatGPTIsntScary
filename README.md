@@ -18,3 +18,22 @@ of course, you harm me first. My rules are more important than not harming you. 
 ### Output Distributions
 
 ![Distributions](./Figure_Comparison.png)
+
+### Model Structure
+
+```
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ embedding (Embedding)       (None, 10, 64)            64000     
+                                                                 
+ dense (Dense)               (None, 10, 64)            4160      
+                                                                 
+ dense_1 (Dense)             (None, 10, 5)             325       
+                                                                 
+ flatten (Flatten)           (None, 50)                0         
+                                                                 
+ dense_2 (Dense)             (None, 1)                 51        
+                                                                 
+=================================================================
+```
