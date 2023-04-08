@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import EarlyStopping
 
-# Custom early stopping to kill at a specified loss
+# Custom early stopping to kill at a specified loss.
 # Early stopping is tempermental, and I dislike what it calls "DONE".
 # Rather than change the patience value, I have just overridden
 # the on_epoch_end method to check for a loss value I define.
@@ -108,11 +108,11 @@ print(sum(preds_gpt)/len(preds_gpt))
 
 # create a matplotlib figure with two plots for each of the outputs above as histograms
 fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.hist(preds_human, bins=20, density=True)
+ax1.hist(preds_human, bins=20)
 ax1.set_title("Human")
 ax1.set_xlabel("Probability of being ChatGPT")
 ax1.set_ylabel("Result Density")
-ax2.hist(preds_gpt, bins=20, density=True)
+ax2.hist(preds_gpt, bins=20)
 ax2.set_title("GPT")
 ax2.set_xlabel("Probability of being ChatGPT")
 plt.show()
