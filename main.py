@@ -89,7 +89,16 @@ sgd = SGD(lr=0.01, nesterov=True)
 
 model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
-model.fit(all_train, all_labels, epochs=1000, batch_size=32, validation_split=0.2, callbacks=[CustomEarlyStopping(stop_loss=0.05)])
+model.fit(
+    all_train, 
+    all_labels, 
+    epochs=1000, 
+    batch_size=32, 
+    validation_split=0.2, 
+    callbacks=[
+        CustomEarlyStopping(stop_loss=0.05)
+    ]
+)
 
 test_my_input = strip_newlines(get_data("test_data/test_real.txt"))
 new_gpt = strip_newlines(get_data("test_data/test_gpt.txt"))
