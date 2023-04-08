@@ -21,9 +21,6 @@ Let the AI vs AI arms race begin!
 
 ### Output Distributions
 
-Note: The density values on here are just totally broken, and they don't relate at all to the number of samples. I have no idea what is
-going on there.
-
 ![Distributions](./FigureFixed.png)
 
 ### Model Structure
