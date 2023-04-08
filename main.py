@@ -63,6 +63,7 @@ preds_human = [float(x) for x in model.predict(predict_my_input)]
 ## create a plot of the distributions of values in each output
 plt.hist(preds_gpt, bins=5, alpha=0.5, label='GPT', density=True)
 plt.hist(preds_human, bins=5, alpha=0.5, label='Human', density=True)
-
+plt.xlabel("Probability of being ChatGPT")
+plt.ylabel("'Density' (not really, but it's a histogram)")
 plt.legend(loc='upper right')
 plt.show()
