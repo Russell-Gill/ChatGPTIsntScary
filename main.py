@@ -4,6 +4,20 @@ import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
+from tensorflow.keras.callbacks import EarlyStopping
+
+class CustomEarlyStopping(EarlyStopping):
+    def __init__(self, monitor='val_loss', stop_loss=0.05, min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False, require_loss=False):
+        super().__init__(monitor=monitor, min_delta=min_delta, patience=patience, verbose=verbose, mode=mode, baseline=baseline, restore_best_weights=restore_best_weights)
+        self.require_loss = require_loss
+        self.stop_loss = stop_loss
+
+    def on_epoch_end(self, epoch, logs=None):
+        current = self.get_monitor_value(logs)
+        if current < self.stop_loss:
+            self.stopped_epoch = epoch
+            self.model.stop_training = True
+
 
 def get_data(location: str) -> list:
     lines = []
@@ -38,7 +52,9 @@ all_labels = np.concatenate((labels, labels_human))
 
 model = Sequential([
     layers.Embedding(input_dim=lexical_size, output_dim=64, input_length=max_words),
+    layers.Dropout(0.1),
     layers.Dense(64, activation='relu'),
+    layers.Dropout(0.1),
     layers.Dense(5, activation='relu'),
     layers.Flatten(),
     layers.Dense(1, activation='sigmoid')
@@ -48,7 +64,7 @@ sgd = SGD(lr=0.01, nesterov=True)
 
 model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
-model.fit(all_train, all_labels, epochs=1000, batch_size=32, validation_split=0.2)
+model.fit(all_train, all_labels, epochs=1000, batch_size=32, validation_split=0.2, callbacks=[CustomEarlyStopping(stop_loss=0.05)])
 
 test_my_input = strip_newlines(get_data("test_data/test_real.txt"))
 new_gpt = strip_newlines(get_data("test_data/test_gpt.txt"))
