@@ -1,5 +1,5 @@
 from tensorflow.keras import layers, Sequential
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.optimizers import SGD
 import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -44,7 +44,9 @@ model = Sequential([
     layers.Dense(1, activation='sigmoid')
 ])
 
-model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
+sgd = SGD(lr=0.01, nesterov=True)
+
+model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
 model.fit(all_train, all_labels, epochs=1000, batch_size=32, validation_split=0.2)
 
