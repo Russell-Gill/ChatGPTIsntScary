@@ -3,8 +3,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-
-test_my_input = ["I wonder how much I sound like chat gpt?", "do I sound like chatgpt?", "I swear, i'm totally not a bot"]
+import matplotlib.pyplot as plt
 
 def get_data(location: str) -> list:
     lines = []
@@ -38,18 +37,32 @@ all_train = np.concatenate((train_data_gpt, human_train_sequences))
 all_labels = np.concatenate((labels, labels_human))
 
 model = Sequential([
-    layers.Embedding(input_dim=lexical_size, output_dim=15, input_length=max_words),
-    layers.Dense(15, activation='relu'),
+    layers.Embedding(input_dim=lexical_size, output_dim=64, input_length=max_words),
+    layers.Dense(64, activation='relu'),
     layers.Dense(5, activation='relu'),
     layers.Flatten(),
     layers.Dense(1, activation='sigmoid')
 ])
 
-early_stopping = EarlyStopping(monitor='val_loss', patience=3)
+early_stopping = EarlyStopping(monitor='val_loss', patience=5)
 
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
 model.fit(all_train, all_labels, epochs=50, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
-    
+
+test_my_input = strip_newlines(get_data("test_data/test_real.txt"))
+new_gpt = strip_newlines(get_data("test_data/test_gpt.txt"))
+
+
 predict_my_input = create_token_sequences(test_my_input, tokenizer, maxlen=max_words)
-print(model.predict(predict_my_input))
+predict_new_gpt = create_token_sequences(new_gpt, tokenizer, maxlen=max_words)
+
+preds_gpt = [float(x) for x in model.predict(predict_new_gpt)]
+preds_human = [float(x) for x in model.predict(predict_my_input)]
+
+## create a plot of the distributions of values in each output
+plt.hist(preds_gpt, bins=5, alpha=0.5, label='GPT', density=True)
+plt.hist(preds_human, bins=5, alpha=0.5, label='Human', density=True)
+
+plt.legend(loc='upper right')
+plt.show()
