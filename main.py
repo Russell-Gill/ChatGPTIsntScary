@@ -1,8 +1,6 @@
-import tensorflow as tf
 from tensorflow.keras import layers, Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 import numpy as np
-import tensorflow.keras.layers.experimental.preprocessing as preprocessing
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
