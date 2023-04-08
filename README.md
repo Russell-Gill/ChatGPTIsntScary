@@ -7,7 +7,7 @@ created with the following prompt:
 
 
 The human data was pulled from a kaggle dataset that contains text messages, as well as other data. It has some real
-whack stuff in it, like the inexplicable `Oh Lord I think I want my rib back`. The prediction output scores from
+whack stuff in it, like the inexplicable `Oh Lord I think I want my rib back`. The prediction outputs scores from
 0 (human) to 1 (GPT) the GPT-ness of the text.
 
 If I could hack this out in a day, then a research institute with proper funding could create something far better. 
