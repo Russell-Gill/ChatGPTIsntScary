@@ -44,15 +44,12 @@ model = Sequential([
     layers.Dense(1, activation='sigmoid')
 ])
 
-early_stopping = EarlyStopping(monitor='val_loss', patience=5)
-
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
-model.fit(all_train, all_labels, epochs=50, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
+model.fit(all_train, all_labels, epochs=1000, batch_size=32, validation_split=0.2)
 
 test_my_input = strip_newlines(get_data("test_data/test_real.txt"))
 new_gpt = strip_newlines(get_data("test_data/test_gpt.txt"))
-
 
 predict_my_input = create_token_sequences(test_my_input, tokenizer, maxlen=max_words)
 predict_new_gpt = create_token_sequences(new_gpt, tokenizer, maxlen=max_words)
