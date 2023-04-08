@@ -1,6 +1,6 @@
 # Chat GPT Isn't Scary
 
-This is a demo of how easy it is to detect ChatGPT output when provided samples from real people, and chatGPT. The ChatGPT sample was 
+This is a demo of how easy it is to detect ChatGPT output when provided samples from real people, and ChatGPT. The ChatGPT sample was 
 created with the following prompt:
 
 `generate several hundred sentences that sound as though they could be text messages`
