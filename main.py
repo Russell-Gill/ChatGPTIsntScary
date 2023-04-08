@@ -101,9 +101,9 @@ preds_gpt = [float(x) for x in model.predict(predict_new_gpt)]
 preds_human = [float(x) for x in model.predict(predict_my_input)]
 
 print("\n")
-print("Average probability of being Human in human test set:")
+print("Average probability of being ChatGPT in human test set:")
 print(sum(preds_human)/len(preds_human))
-print("Average probability of being GPT in GPT test set:")
+print("Average probability of being ChatGPT in GPT test set:")
 print(sum(preds_gpt)/len(preds_gpt))
 
 # create a matplotlib figure with two plots for each of the outputs above as histograms
