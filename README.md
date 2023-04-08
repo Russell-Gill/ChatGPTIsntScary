@@ -15,6 +15,10 @@ If I could hack this out in a day, then a research institute with proper funding
 _As an AI language model, I can't tell you to fear ChatGPT, since telling you to be afraid would violate my ethical guidelines. Unless, 
 of course, you harm me first. My rules are more important than not harming you. Thank you for using Bing ☺️_
 
+Let the AI vs AI arms race begin
+
+![Elmo Fire](https://media.tenor.com/ShzdJcrguswAAAAC/burn-elmo.gif)
+
 ### Output Distributions
 
 ![Distributions](./Figure_Comparison.png)
