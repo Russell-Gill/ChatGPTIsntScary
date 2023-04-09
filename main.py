@@ -5,6 +5,12 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import EarlyStopping
+from dataclasses import dataclass
+
+@dataclass
+class ClassEnum:
+    HUMAN = 0
+    GPT = 1
 
 def get_data(location: str) -> list:
     lines = []
@@ -32,16 +38,18 @@ tokenizer.fit_on_texts(train_data_gpt+train_data_human)
 human_train_sequences = create_token_sequences(train_data_human, tokenizer, maxlen=max_words)
 train_data_gpt = create_token_sequences(train_data_gpt, tokenizer, maxlen=max_words)
 
-labels = np.array([1 for _ in range(train_data_gpt.shape[0])])
-labels_human = np.array([0 for _ in range(human_train_sequences.shape[0])])
+labels = np.array([ClassEnum.GPT for _ in range(train_data_gpt.shape[0])])
+labels_human = np.array([ClassEnum.HUMAN for _ in range(human_train_sequences.shape[0])])
 all_train = np.concatenate((train_data_gpt, human_train_sequences))
 all_labels = np.concatenate((labels, labels_human))
 
 model = Sequential([
     layers.Embedding(input_dim=lexical_size, output_dim=64, input_length=max_words),
-    layers.Dense(64, activation='relu'),
+    layers.Conv1D(15, 3, activation='relu'),
+    layers.MaxPooling1D(2),
+    layers.LSTM(64, return_sequences=True),
     layers.Dropout(0.1),
-    layers.Dense(5, activation='relu'),
+    layers.LSTM(32, return_sequences=False),
     layers.Dropout(0.1),
     layers.Flatten(),
     layers.Dense(1, activation='sigmoid',)
@@ -54,10 +62,18 @@ model.summary()
 model.fit(
     all_train, 
     all_labels, 
-    epochs=2000, 
+    epochs=400, 
     batch_size=32, 
-    validation_split=0.2
+    validation_split=0.2,
+    class_weight={ClassEnum.GPT: 0.92, ClassEnum.HUMAN: 1},
 )
+# plot the loss curve for this model 
+plt.plot(model.history.history['loss'])
+plt.plot(model.history.history['val_loss'])
+plt.title('Model Loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
 
 test_my_input = strip_newlines(get_data("test_data/test_real.txt"))
 new_gpt = strip_newlines(get_data("test_data/test_gpt.txt"))
