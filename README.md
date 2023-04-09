@@ -7,7 +7,7 @@ created with the following prompt:
 
 ![ChatGPT](ai_model.png)
 
-The human data was pulled from a kaggle dataset that contains text messages, as well as other data. It has some real
+The human data was pulled from a [github](https://github.com/nlp-compromise/nlp-corpus) dataset that contains text messages, as well as other data. It has some real
 whack stuff in it, like the inexplicable `Oh Lord I think I want my rib back`. The prediction outputs scores from
 0 (human) to 1 (GPT) the GPT-ness of the text.
 
@@ -32,17 +32,22 @@ _________________________________________________________________
 =================================================================
  embedding (Embedding)       (None, 10, 64)            64000     
                                                                  
- dropout (Dropout)           (None, 10, 64)            0         
+ conv1d (Conv1D)             (None, 8, 15)             2895      
                                                                  
- dense (Dense)               (None, 10, 64)            4160      
+ max_pooling1d (MaxPooling1D  (None, 4, 15)            0         
+ )                                                               
                                                                  
- dropout_1 (Dropout)         (None, 10, 64)            0         
+ lstm (LSTM)                 (None, 4, 64)             20480     
                                                                  
- dense_1 (Dense)             (None, 10, 5)             325       
+ dropout (Dropout)           (None, 4, 64)             0         
                                                                  
- flatten (Flatten)           (None, 50)                0         
+ lstm_1 (LSTM)               (None, 32)                12416     
                                                                  
- dense_2 (Dense)             (None, 1)                 51        
+ dropout_1 (Dropout)         (None, 32)                0         
+                                                                 
+ flatten (Flatten)           (None, 32)                0         
+                                                                 
+ dense (Dense)               (None, 1)                 33        
                                                                  
 =================================================================
 ```
