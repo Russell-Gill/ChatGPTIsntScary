@@ -5,7 +5,7 @@ created with the following prompt:
 
 `generate several hundred sentences that sound as though they could be text messages`
 
-![ChatGPT](ai_model.png)
+![ChatGPT](ai_model.jpg)
 
 The human data was pulled from a [github](https://github.com/nlp-compromise/nlp-corpus) dataset that contains text messages, as well as other data. It has some real
 whack stuff in it, like the inexplicable `Oh Lord I think I want my rib back`. The prediction outputs scores from
