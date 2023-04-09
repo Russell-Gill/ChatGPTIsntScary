@@ -64,12 +64,14 @@ model.fit(
     all_labels, 
     epochs=400, 
     batch_size=32, 
-    validation_split=0.2,
-    class_weight={ClassEnum.GPT: 0.92, ClassEnum.HUMAN: 1},
+    validation_split=0.2
 )
+
 # plot the loss curve for this model 
 plt.plot(model.history.history['loss'])
 plt.plot(model.history.history['val_loss'])
+plt.plot(model.history.history['val_accuracy'])
+plt.plot(model.history.history['accuracy'])
 plt.title('Model Loss')
 plt.ylabel('Loss')
 plt.xlabel('Epoch')
@@ -100,3 +102,11 @@ ax2.hist(preds_gpt, bins=20)
 ax2.set_title("GPT")
 ax2.set_xlabel("Probability of being ChatGPT")
 plt.show()
+
+new_input = ["I wonder if i sound like chatgpt"]
+new_input = create_token_sequences(new_input, tokenizer, maxlen=max_words)
+print(model.predict(new_input))
+
+new_gpt_input =["I hope my responses are helpful and informative. Let me know if there's anything else I can do for you!"]
+new_gpt_input = create_token_sequences(new_gpt_input, tokenizer, maxlen=max_words)
+print(model.predict(new_gpt_input))
